@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packet Monitor — Post-Quantum Drone System</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="scanline"></div>
+    <div class="glow"></div>
+
+    <header>
+        <div class="branding">
+            <h1>PACKET MONITOR</h1>
+            <div class="sub">SECURE DATA LINK <span id="op-name">CPT. TRIPATHI</span></div>
+        </div>
+        <div class="clock" id="hud-clock">--:--:--</div>
+    </header>
+
+    <main class="minimal-layout">
+        <!-- ── OPERATIONAL MODES ── -->
+        <section class="mode-center">
+            <div class="mode-label">SYSTEM MODE</div>
+            <div class="mode-toggle">
+                <button class="m-btn" id="m-manual" onclick="setMode('MANUAL')">MANUAL</button>
+                <button class="m-btn active" id="m-assisted" onclick="setMode('ASSISTED')">ASSISTED</button>
+                <button class="m-btn" id="m-autonomous" onclick="setMode('AUTONOMOUS')">AUTONOMOUS</button>
+            </div>
+            <div class="mode-status" id="mode-detail">NORMAL OPERATIONS — LINK SECURE</div>
+        </section>
+
+        <!-- ── PACKET COUNTERS ── -->
+        <section class="packet-stats">
+            <div class="stat-card sent glass">
+                <div class="stat-label">TRANSMITTER egress</div>
+                <div class="stat-value" id="packets-sent">0</div>
+                <div class="stat-sub">Packets Left Transmitter</div>
+                <div class="stat-glow cyan"></div>
+            </div>
+
+            <div class="stat-card received glass">
+                <div class="stat-label">DRONE ingress</div>
+                <div class="stat-value" id="packets-received">0</div>
+                <div class="stat-sub">Packets Received by Drone</div>
+                <div class="stat-glow emerald"></div>
+            </div>
+        </section>
+
+        <!-- ── DATA LINK VISUALIZER ── -->
+        <section class="link-visualizer glass">
+            <div class="visualizer-header">
+                <span>ENCRYPTION: ML-KEM-512 + ML-DSA-44</span>
+                <span id="signal-label">SIGNAL: CONNECTED</span>
+            </div>
+            <div class="stream-container">
+                <div class="stream" id="packet-stream"></div>
+            </div>
+        </section>
+
+        <!-- ── UTILITY CONTROLS (for testing) ── -->
+        <section class="utils">
+            <button class="u-btn" id="btn-scan" onclick="triggerNewScan()">⚡ TRIGGER PACKET (SCAN)</button>
+            <div id="quick-queue" class="hidden">
+                <button class="u-btn authorize" onclick="approveMostRecent()">✅ AUTHORIZE ALL PENDING</button>
+            </div>
+            <button class="u-btn reset" onclick="resetSystem()">🔄 RESET STATS</button>
+        </section>
+    </main>
+
+    <div id="toast-container"></div>
+    <script src="app.js"></script>
+</body>
+</html>

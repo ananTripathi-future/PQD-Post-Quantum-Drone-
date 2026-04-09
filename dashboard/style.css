@@ -1,0 +1,273 @@
+/* ============================================================
+   PACKET MONITOR — FOCUSED SYSTEM
+   Cyber-HUD Aesthetic / Minimalist
+   ============================================================ */
+
+:root {
+    --bg: #020408;
+    --bg-glass: rgba(6, 12, 20, 0.7);
+    --cyan: #00f2ff;
+    --emerald: #00ff95;
+    --amber: #ffb700;
+    --crimson: #ff1144;
+    --slate: #4a5568;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-sans: 'Outfit', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg);
+    color: #e2e8f0;
+    font-family: var(--font-sans);
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── VISUAL FX ── */
+.scanline {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 2px;
+    background: rgba(0, 242, 255, 0.2);
+    box-shadow: 0 0 10px var(--cyan);
+    z-index: 1000;
+    pointer-events: none;
+    animation: scan 6s linear infinite;
+}
+
+@keyframes scan { from { transform: translateY(-100%); } to { transform: translateY(100vh); } }
+
+.glow {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 242, 255, 0.05), transparent 70%);
+    z-index: -1;
+}
+
+/* ── HEADER ── */
+header {
+    height: 80px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 242, 255, 0.1);
+    background: rgba(4, 8, 15, 0.9);
+    backdrop-filter: blur(10px);
+}
+
+.branding h1 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: var(--cyan);
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+}
+
+.branding .sub {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--slate);
+    letter-spacing: 2px;
+}
+
+.clock {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    color: var(--amber);
+    background: rgba(255, 183, 0, 0.1);
+    padding: 4px 20px;
+    border: 1px solid var(--amber);
+    border-radius: 4px;
+}
+
+/* ── LAYOUT ── */
+.minimal-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ── MODE SELECTOR ── */
+.mode-center {
+    width: 100%;
+    text-align: center;
+}
+
+.mode-label {
+    font-size: 0.8rem;
+    color: var(--slate);
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+
+.mode-toggle {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.m-btn {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--slate);
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 2px;
+}
+
+.m-btn.active {
+    border-color: var(--cyan);
+    color: #fff;
+    background: rgba(0, 242, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+}
+
+.mode-status {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--cyan);
+    opacity: 0.8;
+}
+
+/* ── STAT CARDS ── */
+.packet-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    width: 100%;
+}
+
+.stat-card {
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.glass {
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: var(--slate);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1;
+    font-family: var(--font-mono);
+    margin-bottom: 10px;
+}
+
+.stat-sub {
+    font-size: 0.8rem;
+    color: var(--slate);
+    font-weight: 700;
+}
+
+.sent .stat-value { color: var(--cyan); text-shadow: 0 0 30px rgba(0, 242, 255, 0.3); }
+.received .stat-value { color: var(--emerald); text-shadow: 0 0 30px rgba(0, 255, 149, 0.3); }
+
+/* ── LINK VISUALIZER ── */
+.link-visualizer {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.visualizer-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--slate);
+    letter-spacing: 1px;
+}
+
+.stream-container {
+    height: 40px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.stream {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(90deg, 
+        transparent, 
+        transparent 10px, 
+        rgba(0, 242, 255, 0.3) 10px, 
+        rgba(0, 242, 255, 0.3) 12px);
+    animation: flow 1s linear infinite;
+}
+
+@keyframes flow {
+    from { transform: translateX(0); }
+    to { transform: translateX(22px); }
+}
+
+/* ── UTILS ── */
+.utils {
+    display: flex;
+    gap: 20px;
+}
+
+.u-btn {
+    background: transparent;
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    color: var(--cyan);
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: var(--font-mono);
+}
+
+.u-btn:hover { background: rgba(0, 242, 255, 0.1); border-color: var(--cyan); }
+.u-btn.reset { border-color: var(--crimson); color: var(--crimson); }
+.u-btn.reset:hover { background: var(--crimson); color: #fff; }
+.u-btn.authorize { color: var(--emerald); border-color: var(--emerald); background: rgba(0, 255, 149, 0.1); border-width: 2px; }
+
+.hidden { display: none; }
+
+/* ── TOASTS ── */
+#toast-container { position: fixed; bottom: 30px; right: 30px; display:flex; flex-direction:column; gap:10px; z-index:2000; }
+.toast { padding: 12px 24px; border: 1px solid var(--border); border-radius: 8px; color: #fff; min-width: 250px; opacity:0; transition: 0.5s; font-size:0.8rem; font-weight:700; letter-spacing:1px; }
+
+@media (max-width: 900px) {
+    .packet-stats { grid-template-columns: 1fr; }
+    .stat-value { font-size: 3rem; }
+}
